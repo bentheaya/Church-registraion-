@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - International Vision Center Baharini</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/ico.jpeg' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="{% static 'images/ico.jpeg' %}" alt="Church Logo" class="logo">
+            <h1>International Vision Center Baharini</h1>
+            <h2>Registration Form</h2>
+        </header>
+        <main>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="full_name">Full Name:</label>
+                    {{ form.full_name }}
+                </div>
+                <div class="form-group">
+                    <label for="date_of_birth">Date of Birth:</label>
+                    {{ form.date_of_birth }}
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    {{ form.gender }}
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number:</label>
+                    {{ form.phone_number }}
+                </div>
+                <div class="form-group">
+                    <label for="email_address">Email Address:</label>
+                    {{ form.email_address }}
+                </div>
+                <div class="form-group">
+                    <label for="mailing_address">Mailing Address:</label>
+                    {{ form.mailing_address }}
+                </div>
+                <div class="form-group">
+                    <label for="marital_status">Marital Status:</label>
+                    {{ form.marital_status }}
+                </div>
+                <div class="form-group">
+                    <label for="spouse_name">Spouse's Name:</label>
+                    {{ form.spouse_name }}
+                </div>
+                <div class="form-group">
+                    <label for="children_names_ages">Children's Names and Ages:</label>
+                    {{ form.children_names_ages }}
+                </div>
+                <div class="form-group">
+                    <label for="membership_status">Membership Status:</label>
+                    {{ form.membership_status }}
+                </div>
+                <div class="form-group">
+                    <label for="date_of_membership">Date of Membership:</label>
+                    {{ form.date_of_membership }}
+                </div>
+                <div class="form-group">
+                    <label for="baptism_date">Baptism Date:</label>
+                    {{ form.baptism_date }}
+                </div>
+                <div class="form-group">
+                    <label for="baptism_place">Baptism Place:</label>
+                    {{ form.baptism_place }}
+                </div>
+                <div class="form-group">
+                    <label for="previous_church">Previous Church:</label>
+                    {{ form.previous_church }}
+                </div>
+                <div class="form-group">
+                    <label for="ministry_interests">Ministry Interests:</label>
+                    {{ form.ministry_interests }}
+                </div>
+                <div class="form-group">
+                    <label for="spiritual_gifts_talents">Spiritual Gifts/Talents:</label>
+                    {{ form.spiritual_gifts_talents }}
+                </div>
+                <div class="form-group">
+                    <label for="emergency_contact_name">Emergency Contact Name:</label>
+                    {{ form.emergency_contact_name }}
+                </div>
+                <div class="form-group">
+                    <label for="emergency_contact_relationship">Emergency Contact Relationship:</label>
+                    {{ form.emergency_contact_relationship }}
+                </div>
+                <div class="form-group">
+                    <label for="emergency_contact_phone_number">Emergency Contact Phone Number:</label>
+                    {{ form.emergency_contact_phone_number }}
+                </div>
+                <div class="form-group">
+                    <label for="special_needs_allergies">Special Needs/Allergies:</label>
+                    {{ form.special_needs_allergies }}
+                </div>
+                <div class="form-group">
+                    <label for="preferred_service_time">Preferred Service Time:</label>
+                    {{ form.preferred_service_time }}
+                </div>
+                <div class="form-group">
+                    <label for="comments_notes">Comments/Notes:</label>
+                    {{ form.comments_notes }}
+                </div>
+                <div class="form-group">
+                    <label for="photo_consent">Photo Consent:</label>
+                    {{ form.photo_consent }}
+                </div>
+                <div class="form-group">
+                    <label for="privacy_consent">Privacy Consent:</label>
+                    {{ form.privacy_consent }}
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+    </div>
+</body>
+<script src="{% static 'js/scripts.js' %}"></script>
+</html>
