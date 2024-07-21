@@ -1,0 +1,55 @@
+<!-- templates/create_admin.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Admin</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/ico.jpeg' %}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="{% static 'images/ico.jpeg' %}" alt="Church Icon" class="header-icon">
+            <h1>Create Admin</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="form-container">
+            <form method="post" id="create-admin-form">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="help-text">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="help-text">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button type="submit">Create Admin</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('create-admin-form').addEventListener('submit', function(event) {
+            var form = event.target;
+            var isValid = form.checkValidity();
+            
+            // Show help text if form is invalid
+            if (!isValid) {
+                event.preventDefault();
+                var helpTexts = form.querySelectorAll('.help-text');
+                helpTexts.forEach(function(helpText) {
+                    helpText.style.display = 'block';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

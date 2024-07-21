@@ -12,7 +12,10 @@ SECRET_KEY = 'django-insecure-o+2mlph8nrxa0dbl_bny5#p5$xxk(7bf2mu5&enrayb9nel1r^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['churchregistration.pythonanywhere.com']
+ALLOWED_HOSTS = [
+    'churchregistration.pythonanywhere.com',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -69,6 +72,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -111,3 +115,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'registration.CustomUser'

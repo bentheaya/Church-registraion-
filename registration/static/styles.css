@@ -1,0 +1,246 @@
+/* styles.css */
+
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+header {
+    background-color: navy;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 1494px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.header-icon {
+    height: 50px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+/* Container for main content */
+.container {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Section Styling */
+.section {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: navy;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+.view-details {
+    background-color: navy;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.view-details:hover {
+    background-color: darkblue;
+}
+
+/* Form Styling */
+.form-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form button {
+    width: 40%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background-color: navy;
+    color: white;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: black;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Chart Styles */
+.chart {
+    width: 100%;
+    height: 400px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    header {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .form-container {
+        padding: 15px;
+        width: 90%;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-icon {
+        height: 40px;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    .form-container {
+        padding: 10px;
+        width: 100%;
+    }
+}
+
+.help-text {
+    display: none;
+    color: red; /* You can style the help text as needed */
+}
+
+
+/*for admin creation*/
+form#create-admin-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+form#create-admin-form .form-group {
+    margin-bottom: 15px;
+}
+
+form#create-admin-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form#create-admin-form input[type="text"],
+form#create-admin-form input[type="password"],
+form#create-admin-form input[type="email"],
+form#create-admin-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form#create-admin-form button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background-color: navy;
+    color: white;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form#create-admin-form button:hover {
+    background-color: black;
+}

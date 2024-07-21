@@ -1,0 +1,105 @@
+<!-- templates/admin_dashboard.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/ico.jpeg' %}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="{% static 'images/ico.jpeg' %}" alt="Church Icon" class="header-icon">
+            <h1>Admin Dashboard</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="section">
+            <h2>Registered Members</h2>
+            <table id="members-table">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Phone Number</th>
+                        <th>Email Address</th>
+                        <th>Membership Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr>
+                        <td>{{ member.full_name }}</td>
+                        <td>{{ member.date_of_birth }}</td>
+                        <td>{{ member.get_gender_display }}</td>
+                        <td>{{ member.phone_number }}</td>
+                        <td>{{ member.email_address }}</td>
+                        <td>{{ member.get_membership_status_display }}</td>
+                        <td>
+                            <button class="view-details" data-id="{{ member.id }}">View</button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7">No members found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="section">
+            <h2>Gender Distribution</h2>
+            <canvas id="gender-chart" class="chart"></canvas>
+        </div>
+        <div class="section">
+            <h2>Age Distribution</h2>
+            <canvas id="age-chart" class="chart"></canvas>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var genderData = {{ gender_data|safe }};
+        var ageData = {{ age_data|safe }};
+
+        // Gender Distribution Chart
+        var ctxGender = document.getElementById('gender-chart').getContext('2d');
+        new Chart(ctxGender, {
+            type: 'pie',
+            data: {
+                labels: genderData.map(item => item.gender),
+                datasets: [{
+                    data: genderData.map(item => item.count),
+                    backgroundColor: ['#FF6384', '#36A2EB']
+                }]
+            }
+        });
+
+        // Age Distribution Chart
+        var ctxAge = document.getElementById('age-chart').getContext('2d');
+        new Chart(ctxAge, {
+            type: 'bar',
+            data: {
+                labels: ageData.map(item => item.age),
+                datasets: [{
+                    data: ageData.map(item => item.count),
+                    backgroundColor: '#FFCE56'
+                }]
+            }
+        });
+
+        // JavaScript for interactive member view buttons
+        document.querySelectorAll('.view-details').forEach(button => {
+            button.addEventListener('click', () => {
+                const memberId = button.getAttribute('data-id');
+                // Fetch member details or navigate to a details page
+                alert('View details for member ID: ' + memberId);
+            });
+        });
+    </script>
+</body>
+</html>
