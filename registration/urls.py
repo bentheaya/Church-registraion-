@@ -11,4 +11,5 @@ urlpatterns = [
     path('custom_admin/login/', views.custom_admin_login, name='custom_admin_login'),
     path('custom_admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('custom_admin/create_admin/', views.create_admin, name='create_admin'),
+    path('member_details/<int:member_id>/', views.member_details, name='member_details'),
 ]

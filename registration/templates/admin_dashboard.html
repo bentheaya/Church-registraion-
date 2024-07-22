@@ -63,6 +63,35 @@
                 </tbody>
             </table>
         </div>
+        <div id="member-details-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Member Details</h2>
+                <p id="member-full-name"></p>
+                <p id="member-date-of-birth"></p>
+                <p id="member-gender"></p>
+                <p id="member-phone-number"></p>
+                <p id="member-email-address"></p>
+                <p id="member-mailing-address"></p>
+                <p id="member-marital-status"></p>
+                <p id="member-spouse-name"></p>
+                <p id="member-children-names-ages"></p>
+                <p id="member-membership-status"></p>
+                <p id="member-date-of-membership"></p>
+                <p id="member-baptism-info"></p>
+                <p id="member-previous-church"></p>
+                <p id="member-ministry-interests"></p>
+                <p id="member-spiritual-gifts-talents"></p>
+                <p id="member-emergency-contact-name"></p>
+                <p id="member-emergency-contact-relationship"></p>
+                <p id="member-emergency-contact-phone"></p>
+                <p id="member-special-needs-allergies"></p>
+                <p id="member-preferred-service-time"></p>
+                <p id="member-comments-notes"></p>
+                <p id="member-photo-consent"></p>
+                <p id="member-privacy-consent"></p>
+            </div>
+        </div>
         <div class="charts-container">
             <div class="section section-gender">
                 <h2>Gender Distribution</h2>
@@ -116,16 +145,53 @@
                 }]
             }
         });
-
-        // JavaScript for interactive member view buttons
+        // view for records
         document.querySelectorAll('.view-details').forEach(button => {
             button.addEventListener('click', () => {
                 const memberId = button.getAttribute('data-id');
-                // Fetch member details or navigate to a details page
-                alert('View details for member ID: ' + memberId);
+                fetch(`/member_details/${memberId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('member-full-name').innerText = `Full Name: ${data.full_name}`;
+                        document.getElementById('member-date-of-birth').innerText = `Date of Birth: ${data.date_of_birth}`;
+                        document.getElementById('member-gender').innerText = `Gender: ${data.gender}`;
+                        document.getElementById('member-phone-number').innerText = `Phone Number: ${data.phone_number}`;
+                        document.getElementById('member-email-address').innerText = `Email Address: ${data.email_address}`;
+                        document.getElementById('member-mailing-address').innerText = `Mailing Address: ${data.mailing_address}`;
+                        document.getElementById('member-marital-status').innerText = `Marital Status: ${data.marital_status}`;
+                        document.getElementById('member-spouse-name').innerText = `Spouse Name: ${data.spouse_name}`;
+                        document.getElementById('member-children-names-ages').innerText = `Children Names & Ages: ${data.children_names_ages}`;
+                        document.getElementById('member-membership-status').innerText = `Membership Status: ${data.membership_status}`;
+                        document.getElementById('member-date-of-membership').innerText = `Date of Membership: ${data.date_of_membership}`;
+                        document.getElementById('member-baptism-info').innerText = `Baptism Info: ${data.baptism_info}`;
+                        document.getElementById('member-previous-church').innerText = `Previous Church: ${data.previous_church}`;
+                        document.getElementById('member-ministry-interests').innerText = `Ministry Interests: ${data.ministry_interests}`;
+                        document.getElementById('member-spiritual-gifts-talents').innerText = `Spiritual Gifts & Talents: ${data.spiritual_gifts_talents}`;
+                        document.getElementById('member-emergency-contact-name').innerText = `Emergency Contact Name: ${data.emergency_contact_name}`;
+                        document.getElementById('member-emergency-contact-relationship').innerText = `Emergency Contact Relationship: ${data.emergency_contact_relationship}`;
+                        document.getElementById('member-emergency-contact-phone').innerText = `Emergency Contact Phone: ${data.emergency_contact_phone}`;
+                        document.getElementById('member-special-needs-allergies').innerText = `Special Needs/Allergies: ${data.special_needs_allergies}`;
+                        document.getElementById('member-preferred-service-time').innerText = `Preferred Service Time: ${data.preferred_service_time}`;
+                        document.getElementById('member-comments-notes').innerText = `Comments/Notes: ${data.comments_notes}`;
+                        document.getElementById('member-photo-consent').innerText = `Photo Consent: ${data.photo_consent ? 'Yes' : 'No'}`;
+                        document.getElementById('member-privacy-consent').innerText = `Privacy Consent: ${data.privacy_consent ? 'Yes' : 'No'}`;
+
+                        const modal = document.getElementById('member-details-modal');
+                        modal.style.display = 'block';
+
+                        const closeButton = document.getElementsByClassName('close')[0];
+                        closeButton.onclick = function() {
+                            modal.style.display = 'none';
+                        }
+
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = 'none';
+                            }
+                        }
+                    });
             });
         });
-
         // Record deletion
         document.querySelectorAll('.delete-member').forEach(button => {
             button.addEventListener('click', function() {

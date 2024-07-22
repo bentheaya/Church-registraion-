@@ -122,3 +122,36 @@ def delete_member(request, member_id):
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponseForbidden()
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from .models import Member
+
+def member_details(request, member_id):
+    member = get_object_or_404(Member, id=member_id)
+    data = {
+        'full_name': member.full_name,
+        'date_of_birth': member.date_of_birth,
+        'gender': member.get_gender_display(),
+        'phone_number': member.phone_number,
+        'email_address': member.email_address,
+        'mailing_address': member.mailing_address,
+        'marital_status': member.get_marital_status_display(),
+        'spouse_name': member.spouse_name,
+        'children_names_ages': member.children_names_ages,
+        'membership_status': member.get_membership_status_display(),
+        'date_of_membership': member.date_of_membership,
+        'baptism_info': member.baptism_info,
+        'previous_church': member.previous_church,
+        'ministry_interests': member.ministry_interests,
+        'spiritual_gifts_talents': member.spiritual_gifts_talents,
+        'emergency_contact_name': member.emergency_contact_name,
+        'emergency_contact_relationship': member.emergency_contact_relationship,
+        'emergency_contact_phone': member.emergency_contact_phone,
+        'special_needs_allergies': member.special_needs_allergies,
+        'preferred_service_time': member.preferred_service_time,
+        'comments_notes': member.comments_notes,
+        'photo_consent': member.photo_consent,
+        'privacy_consent': member.privacy_consent,
+    }
+    return JsonResponse(data)
