@@ -1,5 +1,7 @@
 from django import forms
 from .models import Member
+from django.contrib.auth.forms import UserCreationForm
+from .models import CustomUser
 
 class MemberForm(forms.ModelForm):
     class Meta:
@@ -18,3 +20,9 @@ class MemberForm(forms.ModelForm):
             'date_of_membership': forms.DateInput(attrs={'type': 'date'}),
             'preferred_service_time': forms.TimeInput(attrs={'type': 'time'}),
         }
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'password1', 'password2')

@@ -1,11 +1,17 @@
 from django.contrib.auth import get_user_model
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .forms import MemberForm
 from django.contrib.auth.forms import UserCreationForm
 import json
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponseForbidden
+from datetime import date
+from django.contrib.auth import logout
 from django.db.models import Count
+from .forms import CustomUserCreationForm
+from .models import CustomUser
 from .models import Member
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
@@ -29,16 +35,45 @@ def custom_admin_login(request):
         form = AuthenticationForm()
     return render(request, 'admin_login.html', {'form': form})
 
+def custom_logout(request):
+    logout(request)
+    return redirect('home')
+
+def calculate_age(born):
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
+def group_ages(members):
+    age_groups = {'0-10': 0, '11-20': 0, '21-30': 0, '31-40': 0, '41-50': 0, '51+': 0}
+    for member in members:
+        age = calculate_age(member['date_of_birth'])
+        if 0 <= age <= 10:
+            age_groups['0-10'] += 1
+        elif 11 <= age <= 20:
+            age_groups['11-20'] += 1
+        elif 21 <= age <= 30:
+            age_groups['21-30'] += 1
+        elif 31 <= age <= 40:
+            age_groups['31-40'] += 1
+        elif 41 <= age <= 50:
+            age_groups['41-50'] += 1
+        else:
+            age_groups['51+'] += 1
+    return [{'age': k, 'count': v} for k, v in age_groups.items()]
+
 @login_required
 def admin_dashboard(request):
     if not request.user.is_staff:
         return HttpResponse('Unauthorized', status=401)
-    members = User.objects.filter(is_staff=False)
+    
+    members = Member.objects.all()
     gender_distribution = Member.objects.values('gender').annotate(count=Count('gender'))
-    age_distribution = Member.objects.values('date_of_birth').annotate(count=Count('date_of_birth'))
+    print(members)
+    age_distribution = Member.objects.values('date_of_birth')
+    age_data_list = group_ages(age_distribution)    
 
     gender_data = json.dumps(list(gender_distribution))
-    age_data = json.dumps(list(age_distribution))
+    age_data = json.dumps(age_data_list)
 
     return render(request, 'admin_dashboard.html', {
         'members': members,
@@ -46,19 +81,20 @@ def admin_dashboard(request):
         'age_data': age_data
     })
 
+
 @login_required
 def create_admin(request):
     if not request.user.is_staff:
         return HttpResponse('Unauthorized', status=401)
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            new_admin = form.save()
+            new_admin = form.save(commit=False)
             new_admin.is_staff = True
             new_admin.save()
             return redirect('admin_dashboard')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'create_admin.html', {'form': form})
 
 def home(request):
@@ -76,3 +112,13 @@ def register(request):
 
 def thank_you(request):
     return render(request, 'registration/thank_you.html')
+
+@csrf_exempt  # manually handling CSRF 
+def delete_member(request, member_id):
+    if request.method == 'DELETE':
+        
+        member = get_object_or_404(Member, id=member_id)
+        member.delete()
+        return JsonResponse({'status': 'success'})
+    else:
+        return HttpResponseForbidden()

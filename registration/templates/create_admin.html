@@ -15,6 +15,16 @@
             <img src="{% static 'images/ico.jpeg' %}" alt="Church Icon" class="header-icon">
             <h1>Create Admin</h1>
         </div>
+        <nav class="navigation">
+        <button class="nav-toggle" id="nav-toggle">☰</button>
+        <div class="nav-menu" id="nav-menu">
+            <ul>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
     </header>
     <div class="container">
         <div class="form-container">
@@ -48,6 +58,16 @@
                 helpTexts.forEach(function(helpText) {
                     helpText.style.display = 'block';
                 });
+            }
+        });
+        // navigation
+        document.getElementById('nav-toggle').addEventListener('click', function() {
+            console.log("cool");
+            var navMenu = document.getElementById('nav-menu');
+            if (navMenu.style.display === 'block') {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'block';
             }
         });
     </script>

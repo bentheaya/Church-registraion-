@@ -1,4 +1,63 @@
-/* styles.css */
+/* Navigation Bar Styles */
+.navigation {
+    position: fixed; /* Changed to fixed to stay in the top-right corner */
+    top: 20px;
+    right: 20px;
+    background-color: navy;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.nav-toggle {
+    background-color: navy;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 5px;
+}
+
+.nav-menu {
+    display: none; 
+    background-color: blue;
+    right: 0;
+    top: 100%;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+    z-index: 1000; 
+}
+
+
+.nav-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu ul li {
+    border-bottom: 1px solid #ddd;
+}
+
+.nav-menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+
+.nav-menu ul li a:hover {
+    background-color: darkblue;
+}
+
+/* Ensure header doesn't overlap navigation */
+header {
+    position: relative;
+    z-index: 1;
+}
 
 /* General Body Styles */
 body {
@@ -24,7 +83,7 @@ header {
     max-width: 1494px;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1;
 }
 
 .header-content {
@@ -65,6 +124,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    overflow-x: auto; /* Allows horizontal scrolling on small screens */
 }
 
 table, th, td {
@@ -74,6 +134,7 @@ table, th, td {
 th, td {
     padding: 12px;
     text-align: left;
+    white-space: nowrap; /* Prevents wrapping text in cells */
 }
 
 th {
@@ -100,7 +161,21 @@ tr:hover {
 }
 
 .view-details:hover {
-    background-color: darkblue;
+    background-color: black;
+}
+
+.delete-member {
+    background-color: navy;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.delete-member:hover {
+    background-color: black;
 }
 
 /* Form Styling */
@@ -152,7 +227,7 @@ form button:hover {
     height: 400px;
 }
 
-/* Media Queries for Responsiveness */
+/* Media Queries for Page Responsiveness */
 @media (max-width: 768px) {
     header {
         padding: 10px;
@@ -173,6 +248,10 @@ form button:hover {
 
     th, td {
         padding: 8px;
+    }
+
+    .charts-container {
+        flex-direction: column;
     }
 }
 
@@ -199,7 +278,6 @@ form button:hover {
     display: none;
     color: red; /* You can style the help text as needed */
 }
-
 
 /*for admin creation*/
 form#create-admin-form {
@@ -243,4 +321,53 @@ form#create-admin-form button {
 
 form#create-admin-form button:hover {
     background-color: black;
+}
+
+/*styles for charts in admin dashboard*/
+.charts-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.section {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Ensure the charts stack on smaller screens */
+@media (max-width: 768px) {
+    .section {
+        flex: 1 1 100%;
+    }
+}
+
+/* Media Queries for Table Responsiveness */
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+        display: block; /* Ensures the table can scroll horizontally */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Adds smooth scrolling on iOS */
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    th, td {
+        padding: 6px;
+        font-size: 12px;
+    }
 }
